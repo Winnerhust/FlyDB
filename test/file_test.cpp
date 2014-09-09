@@ -5,18 +5,19 @@
 
 using namespace std;
 using namespace flydb;
-
+/*
 TEST(File,open)
 {
 	File f;
 
-	EXPECT_EQ(f.open("test_open.txt"),0);
+	EXPECT_EQ(f.open("test/test_open.txt"),0);
 }
+*/
 TEST(File,addpage)
 {
 	File f;
 
-	EXPECT_EQ(f.open("test_open.txt"),0);
+	EXPECT_EQ(f.open("test/test_open.txt"),0);
 	
 	//
 	char pagedata[PAGE_SIZE]="";
@@ -50,9 +51,10 @@ TEST(File,addpage)
 
 TEST(File,getpage)
 {
+    bool shoudcreate = (access("test/test_open_get.txt",0) != 0);
 	File f;
 
-	EXPECT_EQ(f.open("test_open_get.txt"),0);
+	EXPECT_EQ(f.open("test/test_open_get.txt"),0);
 	
 	//
 	char pagedata[PAGE_SIZE]="";
@@ -64,11 +66,11 @@ TEST(File,getpage)
 	Page page;
 	page.frombinary(pagedata);
 
-
-	f.addpage(page,0);
-	f.addpage(page,1);
-	f.addpage(page,3);
-
+    if(shoudcreate){
+	    f.addpage(page,0);
+	    f.addpage(page,1);
+	    f.addpage(page,3);
+    }
 	EXPECT_EQ(f.get_page_num(),4);
 
 	Page t;
@@ -93,13 +95,3 @@ TEST(File,getpage)
 
 }
 
-#ifndef GTEST_MAIN
-#define GTEST_MAIN
-
-int main(int argc, char* argv[])
-{
-    testing::InitGoogleTest(&argc, argv);
-	return RUN_ALL_TESTS();
-}
-
-#endif

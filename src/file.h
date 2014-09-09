@@ -5,11 +5,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <iostream>
-
+#include "page.h"
 using namespace std;
-#define PAGE_SIZE (1024)
+//#define PAGE_SIZE (1024)
 namespace flydb {
-
+/*
 class Page
 {
 public:	
@@ -25,6 +25,7 @@ private:
 	long page_size_;
 	char *bits_;
 };
+*/
 class File
 {
 public:
@@ -35,7 +36,7 @@ public:
 	long get_page_size() const{return page_size_;}
 
 	int open(const char *fname);
-	int close();
+	void close();
 
 	int getpage(Page &page,long pageno);
 	void addpage(Page &page,long pageno);
