@@ -13,7 +13,7 @@ class Record
 public:
     Record();
     ~Record();
-    void suck(Schema *schema,FILE *textfile);
+    int suck(Schema *schema,FILE *textfile);
     void print(Schema *schema);
     void clone(const Record & other);
     void project(int attrs_keep[],int num_keep);

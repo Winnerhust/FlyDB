@@ -17,6 +17,12 @@ TEST(File,addpage)
 {
 	File f;
 
+	bool bexist = (access("test/test_open_get.txt",0) == 0);
+	
+	if(bexist){
+		remove("test/test_open.txt");
+	}
+
 	EXPECT_EQ(f.open("test/test_open.txt"),0);
 	
 	//

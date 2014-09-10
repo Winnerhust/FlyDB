@@ -201,12 +201,12 @@ void Record::marge(const Record &left,const Record &right,int lattrs_keep[],int 
     
 }
 
-void Record::suck(Schema *schema,FILE *textfile)
+int Record::suck(Schema *schema,FILE *textfile)
 {
     if(schema == NULL){
-        return;
+        return -1;
     }
-
+	int ret = 0;
     char *space = new (std::nothrow) char[PAGE_SIZE];
     if(space == NULL){
         fprintf(stderr,"no enough memory!\n");
@@ -237,7 +237,9 @@ void Record::suck(Schema *schema,FILE *textfile)
             if(nextchar == '|'){
                 break;
             }else if(nextchar == EOF){
-                break;
+				ret = -2;
+				break;
+				
             }else if(nextchar == '\r'|| nextchar == '\n'){
                 continue;
             }else{
@@ -272,9 +274,15 @@ void Record::suck(Schema *schema,FILE *textfile)
                 break;
             default:
                 fprintf(stderr,"error:unknown type\n");
+				ret = -1;
         }
 
         ++i;
+
+		if(ret == -2 && i != schema->get_attr_num()){
+			ret = -1;
+			break;
+		}
     }
     
     if(this->bits_){
@@ -294,7 +302,8 @@ void Record::suck(Schema *schema,FILE *textfile)
 
     delete [] space;
     delete [] recspace;
-
+	
+	return ret;
 }
 
 void Record::print(Schema *schema)

@@ -47,6 +47,8 @@ void Page::tobinary(char *bits)
         }
     }
 
+    setindex(i,bits,curpos,0);
+
     *(int *) &bits[page_size_-sizeof(int)] = curpos;
     *(int *) &bits[page_size_-2*sizeof(int)] =  i;
     
@@ -103,14 +105,14 @@ int Page::append(Record &addme)
 int Page::fetchfirst(Record &rec)
 {
     if(records_.size() <= 0){
-        return 0;
+        return -1;
     }
 
     rec.clone(*records_.begin());
 
     records_.pop_front();
 
-    return 1;
+    return 0;
 }
 void Page::clear()
 {

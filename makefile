@@ -11,12 +11,14 @@ testcase:
 	$(CC) $(GTEST_CPPFLAGS) $(CPPFLAGS) -g -c src/record.cpp
 	$(CC) $(GTEST_CPPFLAGS) $(CPPFLAGS) -g -c src/page.cpp
 	$(CC) $(GTEST_CPPFLAGS) $(CPPFLAGS) -g -c src/file.cpp
+	$(CC) $(GTEST_CPPFLAGS) $(CPPFLAGS) -g -c src/dbfile.cpp
 	$(CC) $(GTEST_CPPFLAGS) $(CPPFLAGS) -g -c src/stringutil.cpp
 	$(CC) $(GTEST_CPPFLAGS) $(CPPFLAGS) -g -c test/schema_test.cpp
 	$(CC) $(GTEST_CPPFLAGS) $(CPPFLAGS) -g -c test/record_test.cpp
 	$(CC) $(GTEST_CPPFLAGS) $(CPPFLAGS) -g -c test/page_test.cpp
 	$(CC) $(GTEST_CPPFLAGS) $(CPPFLAGS) -g -c test/file_test.cpp
-	$(CC) $(GTEST_LDFLAGS) -g -o testcase schema_test.o schema.o stringutil.o record.o record_test.o page.o page_test.o file.o file_test.o
+	$(CC) $(GTEST_CPPFLAGS) $(CPPFLAGS) -g -c test/dbfile_test.cpp
+	$(CC) $(GTEST_LDFLAGS) -g -o testcase schema_test.o schema.o stringutil.o record.o record_test.o page.o page_test.o file.o file_test.o dbfile.o dbfile_test.o
 clean:	
 	rm -f *.o testcase
 

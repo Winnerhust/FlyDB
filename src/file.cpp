@@ -104,6 +104,8 @@ void File::addpage(Page &page,long pageno)
 		fprintf(stderr,"no enough memory!\n");
 		exit(-1);
 	}
+
+	memset(bits,0,page_size_);
 	
 	page.set_page_size(page_size_);
 	page.tobinary(bits);
