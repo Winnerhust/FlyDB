@@ -176,7 +176,8 @@ TEST(SchemaMgr,hasschema)
 
 
 
-#ifdef GTEST_MAIN
+#ifndef GTEST_MAIN
+#define GTEST_MAIN
 int main(int argc, char* argv[])
 {
     testing::InitGoogleTest(&argc, argv);
